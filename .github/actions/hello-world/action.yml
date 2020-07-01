@@ -4,4 +4,4 @@ description: "Say hello to my little friend"
 
 runs:
   using: "node12"
-  main: "index.js"
+  main: "main.js"
