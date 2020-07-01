@@ -1,0 +1,7 @@
+name: "My Hello Action"
+
+description: "Say hello to my little friend"
+
+runs:
+  using: "node12"
+  main: "index.js"
