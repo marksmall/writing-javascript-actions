@@ -11,7 +11,6 @@ jobs:
 
       - name: hello-action
         uses: ./.github/actions/hello-world
-        with:
-          first-greeting: "Another greet"
-          second-greeting: "second greeting"
-          third-greeting: "Holy shit"
+
+      - name: ha-ha
+        uses: ./.github/actions/joke-action
