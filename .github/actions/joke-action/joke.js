@@ -1,4 +1,4 @@
-const request = "request-promise";
+const request = require("request-promise");
 
 const options = {
   method: "GET",
@@ -13,7 +13,7 @@ const options = {
 
 async function getJoke() {
   const response = await request(options);
-  return respoinse.joke;
+  return response.joke;
 }
 
 module.exports = getJoke;
