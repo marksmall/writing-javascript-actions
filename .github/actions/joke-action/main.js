@@ -7,4 +7,5 @@ async function run() {
   core.setOutput("joke-output", joke);
 }
 
+console.log("Running Joke action");
 run();
