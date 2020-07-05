@@ -1,0 +1,24 @@
+name: "Deploy"
+
+description: "Deploy an app of set it's deployment status"
+
+inputs:
+  token:
+    description: "The token belonging to the app being deployed"
+    required: true
+  repo:
+    description: "The GIT ref of the repo"
+    required: true
+  sha:
+    description: "The GITHUB_SHA of the head of the branch"
+    required: true
+  environment:
+    description: "The kubernetes environment"
+    required: true
+  instance:
+    description: "The kubernetes instance to deploy to (primary or PR)"
+    required: true
+
+runs:
+  using: "node12"
+  main: "index.js"

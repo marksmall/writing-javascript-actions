@@ -1,8 +1,6 @@
 name: JS Actions
 
-on:
-  pull_request:
-    types: [labeled]
+on: [push]
 
 jobs:
   action:
@@ -11,15 +9,43 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: hello-action
-        uses: ./.github/actions/hello-world
+      # - name: hello-action
+      #   uses: ./.github/actions/hello-world
 
-      - name: ha-ha
-        uses: ./.github/actions/joke-action
-        id: jokes
+      # - name: ha-ha
+      #   uses: ./.github/actions/joke-action
+      #   id: jokes
 
-      - name: create-issue
-        uses: ./.github/actions/issue-maker
+      # - name: create-issue
+      #   uses: ./.github/actions/issue-maker
+      #   with:
+      #     repo-token: ${{secrets.GITHUB_TOKEN}}
+      #     joke: ${{steps.jokes.outputs.joke-output}}
+
+      - name: Primary deploy
+        if: github.ref == 'refs/heads/master'
+        uses: ./.github/actions/deploy
         with:
-          repo-token: ${{secrets.GITHUB_TOKEN}}
-          joke: ${{steps.jokes.outputs.joke-output}}
+          token: ${{secrets.GITHUB_TOKEN}}
+          repo: ${{github.repository}}
+          sha: ${{github.sha}}
+          environment: testing
+          instance: primary
+
+      - name: PR associated deploy
+        if: github.ref != 'refs/heads/master'
+        uses: ./.github/actions/deploy
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          repo: ${{github.repository}}
+          sha: ${{github.sha}}
+          environment: testing
+          instance: associated-pr
+
+      - name: Set the Deployment Status on Success
+        if: success()
+        uses: ./.github/actions/deploy-status
+
+      - name: Set the Deployment Status on Failure
+        if: failure()
+        uses: ./.github/actions/deploy-status

@@ -1,0 +1,27 @@
+name: "Deploy Status"
+
+description: "Set the Deployment's status"
+
+inputs:
+  token:
+    description: "The token belonging to the app being deployed"
+    required: true
+  repo:
+    description: "The GIT ref of the repo"
+    required: true
+  environment:
+    description: "The kubernetes environment"
+    required: true
+  status:
+    description: "The status of the deployment"
+    required: true
+  pr-number:
+    description: "The PR Number"
+    required: false
+  auto-inactive:
+    description: "Set previous deployments of this environment inactive"
+    required: false
+
+runs:
+  using: "node12"
+  main: "index.js"
